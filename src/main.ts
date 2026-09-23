@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
-import helmet from 'helmet';
+import * as helmet from 'helmet';
 import { json, urlencoded } from 'express';
 import { AppModule } from './app.module.js';
 
@@ -13,11 +13,7 @@ async function bootstrap() {
   app.use(urlencoded({ extended: true, limit: '50mb' }));
 
   // إعدادات الحماية مع السماح بعرض الملفات والصور في الفرونت إند
-  app.use(
-    helmet({
-      crossOriginResourcePolicy: { policy: 'cross-origin' },
-    }),
-  );
+  app.use(helmet());
 
   // إعدادات CORS للسماح بالاتصال من React
   app.enableCors({
